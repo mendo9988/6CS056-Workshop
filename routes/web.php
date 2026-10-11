@@ -2,7 +2,7 @@
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 Route::get('/students', function () {
 
     $students = Student::all();
