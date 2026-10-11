@@ -10,9 +10,13 @@ Route::get('/students', function () {
     return view('student.list', [
         'students' => $students
     ]);
+})->name('students.index');
+
+Route::get('/students/create', function () {
+    return view('student.create');
 });
 
-Route::post("/student", function (Request $request) {
+Route::post("/students", function (Request $request) {
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',

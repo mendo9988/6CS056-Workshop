@@ -22,50 +22,50 @@
         </div>
     @endif
 
-    <form action="/students/{{ $student->id }}" method="POST"></form>
-    @csrf
-    @method('PUT')
+    <form action="/students/{{ $student->id }}" method="POST">
+        @csrf
+        @method('PUT')
 
-    <div>
-        <label for="name">Name</label>
+        <div>
+            <label for="name">Name</label>
 
-        <input type="text" id="name" name="name" value="{{ old('name', $student->name) }}">
-    </div>
+            <input type="text" id="name" name="name" value="{{ old('name', $student->name) }}">
+        </div>
 
-    <br>
+        <br>
 
-    <div>
-        <label for="email">Email</label>
+        <div>
+            <label for="email">Email</label>
 
-        <input type="email" id="email" name="email" value="{{ old('email', $student->email) }}">
-    </div>
-    <br>
-    <div>
-        <label for="phone">Phone</label>
+            <input type="email" id="email" name="email" value="{{ old('email', $student->email) }}">
+        </div>
+        <br>
+        <div>
+            <label for="phone">Phone</label>
 
-        <input type="text" id="phone" name="phone" value="{{ old('phone', $student->phone) }}">
-    </div>
+            <input type="text" id="phone" name="phone" value="{{ old('phone', $student->phone) }}">
+        </div>
 
-    <br>
-    <div>
-        <label for="address">Address</label>
+        <br>
+        <div>
+            <label for="address">Address</label>
 
-        <textarea id="address" name="address">{{ old('address', $student->address) }}</textarea>
-    </div>
+            <textarea id="address" name="address">{{ old('address', $student->address) }}</textarea>
+        </div>
 
-    <br>
-    <div>
-        <label for="date_of_birth">Date of Birth</label>
+        <br>
+        <div>
+            <label for="date_of_birth">Date of Birth</label>
 
-        <input type="date" id="date_of_birth" name="date_of_birth"
-            value="{{ old('date_of_birth', $student->date_of_birth) }}">
-    </div>
+            <input type="date" id="date_of_birth" name="date_of_birth"
+                value="{{ old('date_of_birth', $student->date_of_birth) }}">
+        </div>
 
-    <br>
+        <br>
 
-    <button type="submit">
-        Update Student
-    </button>
+        <button type="submit">
+            Update Student
+        </button>
 
     </form>
 
