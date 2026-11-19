@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Student Record')</title>
+    <title>@yield('title', 'Training Institute')</title>
     @fonts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -17,7 +17,7 @@
             <div class="flex items-center justify-between gap-3">
                 <a href="{{ url('/') }}" class="flex items-center gap-2 font-display text-lg font-semibold text-navy">
                     <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-sunshine text-xl" aria-hidden="true">✎</span>
-                    <span>Student Record</span>
+                    <span>Training Institute</span>
                 </a>
 
                 <button
@@ -39,6 +39,9 @@
                             <a href="/students" class="cartoon-btn {{ request()->is('students') && ! request()->is('students/*') ? 'bg-mint text-navy' : 'bg-transparent text-navy hover:bg-cream' }}">Students</a>
                         </li>
                         <li>
+                            <a href="{{ route('courses.index') }}" class="cartoon-btn {{ request()->is('courses*') ? 'bg-mint text-navy' : 'bg-transparent text-navy hover:bg-cream' }}">Courses</a>
+                        </li>
+                        <li>
                             <a href="/students/create" class="cartoon-btn bg-peach text-white shadow-[0_4px_0_#f06e18] hover:bg-peach-dark active:translate-y-0.5 active:shadow-none">Create Student →</a>
                         </li>
                     </ul>
@@ -49,6 +52,7 @@
                 <ul class="flex flex-col gap-2">
                     <li><a href="{{ url('/') }}" class="cartoon-btn w-full bg-cream text-navy">Home</a></li>
                     <li><a href="/students" class="cartoon-btn w-full bg-cream text-navy">Students</a></li>
+                    <li><a href="{{ route('courses.index') }}" class="cartoon-btn w-full bg-cream text-navy">Courses</a></li>
                     <li><a href="/students/create" class="cartoon-btn w-full bg-peach text-white">Create Student →</a></li>
                 </ul>
             </nav>
@@ -75,7 +79,7 @@
 
     <footer class="px-4 pb-6 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-6xl rounded-3xl border-2 border-sunshine/80 bg-white/80 px-6 py-4 text-center text-sm font-semibold text-navy/70">
-            <p>Student Record Management · Keep every classmate easy to find</p>
+            <p>Training Institute Management · Keep students and courses easy to find</p>
         </div>
     </footer>
 </body>
