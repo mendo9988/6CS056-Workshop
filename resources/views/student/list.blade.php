@@ -1,65 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students</title>
-</head>
+@section('title', 'Students')
+@section('heading', 'Student Record')
+@section('subtitle', 'Browse, edit, and keep student details in one place.')
 
-<body>
-    <h1>Students</h1>
+@section('content')
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <x-button-outline href="/students/create">Create Student →</x-button-outline>
+        <x-badge tone="sunshine">{{ $students->count() }} {{ \Illuminate\Support\Str::plural('student', $students->count()) }}</x-badge>
+    </div>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
-
-    <a href="/students/create">Create Student</a>
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($students as $student)
-                <tr>
-                    <td>{{ $student->id }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->email }}</td>
-                    <td>{{ $student->phone }}</td>
-
-                    <td>
-                        <a href="/students/{{ $student->id }}">
-                            View
-                        </a>
-
-                        <a href="/students/{{ $student->id }}/edit">
-                            Edit
-                        </a>
-                        <form action="/students/{{ $student->id }}" method="POST" style="display:inline">
+    @if ($students->isEmpty())
+        <x-empty-state title="No students found." message="Create the first student record to fill this table.">
+            <x-button href="/students/create">Create Student →</x-button>
+        </x-empty-state>
+    @else
+        <div class="space-y-4 md:hidden">
+            @foreach ($students as $student)
+                <x-card>
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <p class="font-display text-lg text-navy">{{ $student->name }}</p>
+                            <p class="text-sm font-semibold text-navy/70">{{ $student->email }}</p>
+                            <p class="mt-1 text-sm font-semibold text-navy/70">{{ $student->phone }}</p>
+                        </div>
+                        <x-badge>ID {{ $student->id }}</x-badge>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <x-button-outline href="/students/{{ $student->id }}">View</x-button-outline>
+                        <x-button href="/students/{{ $student->id }}/edit">Edit →</x-button>
+                        <form action="/students/{{ $student->id }}" method="POST" class="inline" onsubmit="return confirm('Delete this student record?')">
                             @csrf
                             @method('DELETE')
-
-                            <button type="submit">
-                                Delete
-                            </button>
+                            <x-button variant="danger" type="submit">Delete →</x-button>
                         </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5">
-                        No students found.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</body>
+                    </div>
+                </x-card>
+            @endforeach
+        </div>
 
-</html>
+        <x-table class="hidden md:block">
+            <thead>
+                <tr class="bg-sunshine text-navy">
+                    <th class="px-4 py-3 font-extrabold">ID</th>
+                    <th class="px-4 py-3 font-extrabold">Name</th>
+                    <th class="px-4 py-3 font-extrabold">Email</th>
+                    <th class="px-4 py-3 font-extrabold">Phone</th>
+                    <th class="px-4 py-3 font-extrabold">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($students as $student)
+                    <tr class="border-t-2 border-sunshine/70 odd:bg-cream/40 even:bg-white hover:bg-mint/20">
+                        <td class="px-4 py-3 font-bold text-navy">{{ $student->id }}</td>
+                        <td class="px-4 py-3 font-extrabold text-navy">{{ $student->name }}</td>
+                        <td class="px-4 py-3 font-semibold">{{ $student->email }}</td>
+                        <td class="px-4 py-3 font-semibold">{{ $student->phone }}</td>
+                        <td class="px-4 py-3">
+                            <div class="flex flex-wrap gap-2">
+                                <x-button-outline href="/students/{{ $student->id }}">View</x-button-outline>
+                                <x-button href="/students/{{ $student->id }}/edit">Edit →</x-button>
+                                <form action="/students/{{ $student->id }}" method="POST" class="inline" onsubmit="return confirm('Delete this student record?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-button variant="danger" type="submit">Delete →</x-button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </x-table>
+    @endif
+@endsection

@@ -2,8 +2,70 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-display: 'Fredoka', 'Nunito', ui-rounded, sans-serif;
+
+    --color-sunshine: #ffd54a;
+    --color-sunshine-dark: #f5c400;
+    --color-peach: #ff8a3d;
+    --color-peach-dark: #f06e18;
+    --color-mint: #5eead4;
+    --color-mint-dark: #2dd4bf;
+    --color-navy: #31456b;
+    --color-ink: #3d3a32;
+    --color-paper: #fffdf6;
+    --color-cream: #fff6d4;
+    --color-grid: #f7e7a8;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply min-h-screen font-sans text-ink antialiased;
+        background-color: #ffe9a3;
+        background-image: url('../images/background.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-peach;
+    }
+}
+
+@layer components {
+    .notebook-shell {
+        background-color: rgb(255 253 246 / 0.92);
+        background-image:
+            linear-gradient(rgb(247 231 168 / 0.45) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(247 231 168 / 0.45) 1px, transparent 1px);
+        background-size: 28px 28px;
+        @apply rounded-[2rem] border-[5px] border-sunshine shadow-[0_12px_0_#f5c400,0_24px_40px_rgb(61_58_50_/_0.12)];
+    }
+
+    .title-arch {
+        font-family: var(--font-display);
+        @apply text-4xl font-semibold tracking-wide text-mint sm:text-5xl md:text-6xl;
+        -webkit-text-stroke: 2px #2dd4bf;
+        text-shadow:
+            3px 4px 0 #fff,
+            0 8px 0 rgb(45 212 191 / 0.18);
+    }
+
+    .cartoon-btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-extrabold tracking-wide transition duration-150 ease-out;
+        @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-peach;
+        @apply disabled:cursor-not-allowed disabled:opacity-50;
+    }
 }

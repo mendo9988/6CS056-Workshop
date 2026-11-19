@@ -1,78 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Student</title>
-</head>
+@section('title', 'Edit Student')
+@section('heading', 'Edit Student')
+@section('subtitle', 'Update details for this student record.')
 
-<body>
-    <h1>Edit Student</h1>
+@section('content')
+    <x-card class="mx-auto max-w-2xl">
+        <form action="/students/{{ $student->id }}" method="POST" class="space-y-5">
+            @csrf
+            @method('PUT')
 
-    @if($errors->any())
-        <div>
-            <h3>Please fix the following errors:</h3>
+            <x-input name="name" label="Name" :value="old('name', $student->name)" placeholder="Full name" required autocomplete="name" />
+            <x-input name="email" label="Email" type="email" :value="old('email', $student->email)" placeholder="name@example.com" required autocomplete="email" />
+            <x-input name="phone" label="Phone" :value="old('phone', $student->phone)" placeholder="Phone number" required autocomplete="tel" />
+            <x-textarea name="address" label="Address" :value="old('address', $student->address)" placeholder="Street, city (optional)" />
+            <x-input name="date_of_birth" label="Date of Birth" type="date" :value="old('date_of_birth', $student->date_of_birth)" />
 
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="/students/{{ $student->id }}" method="POST">
-        @csrf
-        @method('PUT')
-
-        <div>
-            <label for="name">Name</label>
-
-            <input type="text" id="name" name="name" value="{{ old('name', $student->name) }}">
-        </div>
-
-        <br>
-
-        <div>
-            <label for="email">Email</label>
-
-            <input type="email" id="email" name="email" value="{{ old('email', $student->email) }}">
-        </div>
-        <br>
-        <div>
-            <label for="phone">Phone</label>
-
-            <input type="text" id="phone" name="phone" value="{{ old('phone', $student->phone) }}">
-        </div>
-
-        <br>
-        <div>
-            <label for="address">Address</label>
-
-            <textarea id="address" name="address">{{ old('address', $student->address) }}</textarea>
-        </div>
-
-        <br>
-        <div>
-            <label for="date_of_birth">Date of Birth</label>
-
-            <input type="date" id="date_of_birth" name="date_of_birth"
-                value="{{ old('date_of_birth', $student->date_of_birth) }}">
-        </div>
-
-        <br>
-
-        <button type="submit">
-            Update Student
-        </button>
-
-    </form>
-
-    <br>
-    <a href="/students">
-        Back to Students
-    </a>
-</body>
-
-</html>
+            <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+                <x-button-outline href="/students" type="button">Back to Students</x-button-outline>
+                <x-button type="submit">Update Student</x-button>
+            </div>
+        </form>
+    </x-card>
+@endsection
